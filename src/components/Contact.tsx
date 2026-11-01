@@ -1,81 +1,96 @@
-
 import React from 'react';
+import { Mail, Phone, Github, MapPin, Send } from 'lucide-react';
 import ContactForm from './ContactForm';
-import { Card, CardContent } from "@/components/ui/card";
-import { Mail, Phone, Github } from "lucide-react";
 
-const Contact = () => {
-  const contactInfo = [
-    {
-      icon: <Mail className="h-5 w-5" />,
-      title: "Email",
-      value: "lemimelkamu@gmail.com",
-      link: "mailto:lemimelkamu@gmail.com"
-    },
-    {
-      icon: <Phone className="h-5 w-5" />,
-      title: "Phone",
-      value: "+251 977 66 84 08",
-      link: "tel:+251977668408"
-    },
-    {
-      icon: <Github className="h-5 w-5" />,
-      title: "GitHub",
-      value: "@lemidb",
-      link: "https://github.com/lemidb"
-    }
-  ];
+const contactInfo = [
+  {
+    icon: <Mail size={18} />,
+    label: 'Email',
+    value: 'lemimelkamu@gmail.com',
+    href:  'mailto:lemimelkamu@gmail.com',
+  },
+  {
+    icon: <Phone size={18} />,
+    label: 'Phone',
+    value: '+251 977 66 84 08',
+    href:  'tel:+251977668408',
+  },
+  {
+    icon: <Github size={18} />,
+    label: 'GitHub',
+    value: '@lemidb',
+    href:  'https://github.com/lemidb',
+  },
+  {
+    icon: <MapPin size={18} />,
+    label: 'Based in',
+    value: 'Addis Ababa, Ethiopia',
+    href:  null,
+  },
+];
 
-  return (
-    <section id="contact" className="relative">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-0 right-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
-      </div>
-      <div className="section-container z-10 relative">
-        <h2 className="section-title">Get In Touch</h2>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
-          <div className="space-y-6">
-            <h3 className="text-2xl font-semibold mb-4">Let's Talk</h3>
-            <p className="text-foreground/80">
-              I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-            </p>
-            
-            <div className="space-y-4 mt-8">
-              {contactInfo.map((info, index) => (
-                <Card key={index} className="bg-card/80 backdrop-blur-sm">
-                  <CardContent className="p-4 flex items-center">
-                    <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center mr-4">
-                      {info.icon}
-                    </div>
-                    <div>
-                      <p className="text-sm text-foreground/70">{info.title}</p>
-                      <a 
-                        href={info.link} 
-                        className="text-foreground hover:text-primary transition-colors"
-                      >
-                        {info.value}
-                      </a>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+const Contact = () => (
+  <section id="contact" className="relative">
+    <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-primary/8 rounded-full blur-[100px]" />
+      <div className="absolute top-0 right-1/4 w-72 h-72 bg-accent/8 rounded-full blur-[100px]" />
+    </div>
+
+    <div className="section-container relative z-10">
+      <p className="section-label text-center">Get in touch</p>
+      <h2 className="section-title">Let's Work Together</h2>
+      <p className="section-subtitle">
+        Open to freelance projects — enterprise integrations, full-stack builds, automation, or AI tools.
+        Let's talk about what you're building.
+      </p>
+
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-4xl mx-auto">
+
+        {/* Contact info panel */}
+        <div className="lg:col-span-2 space-y-4">
+          <div className="glass-card p-6 mb-4">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+              <span className="text-sm font-semibold text-accent">Available for work</span>
             </div>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Taking on select freelance engagements while building toward my own tech startup.
+              Reach out — I respond within 24 hours.
+            </p>
           </div>
-          
-          <div>
-            <Card className="bg-card/80 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <h3 className="text-2xl font-semibold mb-6">Send Me a Message</h3>
-                <ContactForm />
-              </CardContent>
-            </Card>
+
+          {contactInfo.map(({ icon, label, value, href }) => (
+            <div key={label} className="glass-card p-4 flex items-center gap-4 group hover:-translate-y-0.5 transition-transform duration-200">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0">
+                {icon}
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground mb-0.5">{label}</p>
+                {href ? (
+                  <a href={href} className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+                    {value}
+                  </a>
+                ) : (
+                  <p className="text-sm font-medium text-foreground">{value}</p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Contact form */}
+        <div className="lg:col-span-3">
+          <div className="glass-card p-7">
+            <div className="flex items-center gap-2 mb-6">
+              <Send size={16} className="text-primary" />
+              <h3 className="text-base font-bold">Send a Message</h3>
+            </div>
+            <ContactForm />
           </div>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Contact;
