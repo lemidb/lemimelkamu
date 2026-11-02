@@ -1,110 +1,92 @@
-
 import React from 'react';
-import { Card, CardContent } from "@/components/ui/card";
 
-interface SkillItem {
-  name: string;
-  emoji: string;
+interface SkillGroup {
+  label: string;
+  color: string;
+  skills: string[];
 }
 
-interface SkillCategory {
-  name: string;
-  skills: SkillItem[];
-}
+const skillGroups: SkillGroup[] = [
+  {
+    label: 'Enterprise Systems & Integration',
+    color: 'from-violet-500/20 to-indigo-500/10 border-violet-500/20',
+    skills: ['SAP ECC 6.0', 'SAP ABAP', 'RFC / BAPIs', 'MuleSoft', 'DataWeave', 'FI/CO', 'SAP FBCJ', 'SFTP'],
+  },
+  {
+    label: 'Full-Stack Product Development',
+    color: 'from-indigo-500/20 to-blue-500/10 border-indigo-500/20',
+    skills: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Flutter', 'Dart'],
+  },
+  {
+    label: 'Backend, APIs & Data',
+    color: 'from-cyan-500/20 to-sky-500/10 border-cyan-500/20',
+    skills: ['C#', '.NET Core', 'Python', 'FastAPI', 'Flask', 'REST APIs', 'PostgreSQL', 'Supabase'],
+  },
+  {
+    label: 'Applied AI & Automation',
+    color: 'from-emerald-500/20 to-green-500/10 border-emerald-500/20',
+    skills: ['Gemini API', 'Computer Vision', 'OpenCV', 'NLP', 'Telegram Bots', 'Playwright', 'Docker'],
+  },
+  {
+    label: 'Security & Infrastructure',
+    color: 'from-amber-500/20 to-yellow-500/10 border-amber-500/20',
+    skills: ['Web Crypto API', 'Supabase Auth', 'Linux', 'LVM', 'LDAP', 'SSH', 'SFTP'],
+  },
+];
 
-const Skills = () => {
-  const skillCategories: SkillCategory[] = [
-    {
-      name: "Programming Languages",
-      skills: [
-        { name: "JavaScript", emoji: "💻" },
-        { name: "PHP", emoji: "🐘" },
-        { name: "Java", emoji: "☕" },
-        { name: "C++", emoji: "🦀" },
-        { name: "Python", emoji: "🐍" },
-        { name: "C#", emoji: "🟫" },
-        { name: "CSS", emoji: "🎨" }
-      ]
-    },
-    {
-      name: "Web Development",
-      skills: [
-        { name: "Laravel", emoji: "🐘" },
-        { name: "React", emoji: "⚛️" },
-        { name: "Bootstrap", emoji: "📁" },
-        { name: "Django", emoji: "🐍" },
-        { name: ".NET", emoji: "🌐" },
-        { name: "Sass", emoji: "💅" }
-      ]
-    },
-    {
-      name: "Mobile Development",
-      skills: [
-        { name: "Android", emoji: "🤖" },
-        { name: "Flutter", emoji: "📱" }
-      ]
-    },
-    {
-      name: "Technologies & Tools",
-      skills: [
-        { name: "Machine Learning", emoji: "🤖" },
-        { name: "NLP", emoji: "🧠" },
-        { name: "Telegram Bot API", emoji: "🤖" },
-        { name: "Web Scraping", emoji: "🔍" },
-        { name: "Data Analysis", emoji: "📊" },
-        { name: "Docker", emoji: "🐳" }
-      ]
-    },
-    {
-      name: "Operating Systems",
-      skills: [
-        { name: "Kali Linux", emoji: "🐧" },
-        { name: "Ubuntu", emoji: "🐧" },
-        { name: "Debian", emoji: "🐧" },
-        { name: "PFSENSE", emoji: "🔒" }
-      ]
-    },
-    {
-      name: "Soft Skills",
-      skills: [
-        { name: "Problem Solving", emoji: "🧩" },
-        { name: "Communication", emoji: "🗣️" },
-        { name: "Teamwork", emoji: "🤝" }
-      ]
-    }
-  ];
+const Skills = () => (
+  <section id="skills" className="relative">
+    <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-[100px]" />
+    </div>
 
-  return (
-    <section id="skills" className="bg-secondary/50">
-      <div className="section-container">
-        <h2 className="section-title">Technical Skills</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-          {skillCategories.map((category, categoryIndex) => (
-            <Card 
-              key={categoryIndex} 
-              className="bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 animate-fade-up"
-              style={{ animationDelay: `${categoryIndex * 100}ms`, animationFillMode: 'forwards' }}
-            >
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-4 text-primary">{category.name}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div 
-                      key={skillIndex}
-                      className="bg-background/80 text-foreground px-3 py-1.5 rounded-full text-sm flex items-center gap-1.5 transition-transform hover:scale-105"
-                    >
-                      <span>{skill.emoji}</span>
-                      <span>{skill.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+    <div className="section-container">
+      <p className="section-label text-center">What I know</p>
+      <h2 className="section-title">Skills & Technologies</h2>
+      <p className="section-subtitle">
+        A focused toolkit for enterprise integration, production-ready products, and practical automation.
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {skillGroups.map((group, gi) => (
+          <div
+            key={group.label}
+            className={`glass-card p-6 bg-gradient-to-br ${group.color} border`}
+            style={{ animationDelay: `${gi * 80}ms` }}
+          >
+            <h3 className="text-sm font-bold text-foreground mb-4">{group.label}</h3>
+            <div className="flex flex-wrap gap-2">
+              {group.skills.map(skill => (
+                <span
+                  key={skill}
+                  className="px-2.5 py-1 text-xs rounded-md bg-background/50 text-foreground/80 border border-white/5 font-medium hover:border-white/15 transition-colors"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Language proficiency row */}
+      <div className="mt-8 glass-card p-6 border border-white/5">
+        <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">Languages spoken</p>
+        <div className="flex flex-wrap gap-4">
+          {[
+            { lang: 'English',     level: 'Professional' },
+            { lang: 'Amharic',     level: 'Native' },
+            { lang: 'Afan Oromo',  level: 'Native' },
+          ].map(({ lang, level }) => (
+            <div key={lang} className="flex items-center gap-2">
+              <span className="font-semibold text-sm text-foreground">{lang}</span>
+              <span className="text-xs text-muted-foreground px-2 py-0.5 rounded-full bg-white/5 border border-white/5">{level}</span>
+            </div>
           ))}
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Skills;
