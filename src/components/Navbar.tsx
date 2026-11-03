@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 
 const navItems = [
   { name: 'Home',       href: '#home' },
+  { name: 'Services',   href: '#services' },
   { name: 'Projects',   href: '#projects' },
   { name: 'Skills',     href: '#skills' },
   { name: 'Experience', href: '#experience' },
@@ -102,7 +103,7 @@ const Navbar = () => {
       {/* Mobile drawer */}
       <div className={cn(
         'md:hidden overflow-hidden transition-all duration-300 border-t border-white/5',
-        mobileOpen ? 'max-h-80 opacity-100 bg-background/95 backdrop-blur-xl' : 'max-h-0 opacity-0'
+        mobileOpen ? 'max-h-96 opacity-100 bg-background/95 backdrop-blur-xl' : 'max-h-0 opacity-0'
       )}>
         <div className="px-6 py-4 space-y-1">
           {navItems.map(item => (

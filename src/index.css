@@ -222,3 +222,16 @@
   0%, 100% { border-color: hsl(var(--primary)); }
   50%       { border-color: transparent; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-spin-slow,
+  .animate-glow-pulse,
+  .hero-blink-cursor {
+    animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

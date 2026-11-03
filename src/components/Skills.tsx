@@ -4,14 +4,10 @@ interface SkillGroup {
   label: string;
   color: string;
   skills: string[];
+  categoryLabel?: string;
 }
 
 const skillGroups: SkillGroup[] = [
-  {
-    label: 'Enterprise Systems & Integration',
-    color: 'from-violet-500/20 to-indigo-500/10 border-violet-500/20',
-    skills: ['SAP ECC 6.0', 'SAP ABAP', 'RFC / BAPIs', 'MuleSoft', 'DataWeave', 'FI/CO', 'SAP FBCJ', 'SFTP'],
-  },
   {
     label: 'Full-Stack Product Development',
     color: 'from-indigo-500/20 to-blue-500/10 border-indigo-500/20',
@@ -20,17 +16,23 @@ const skillGroups: SkillGroup[] = [
   {
     label: 'Backend, APIs & Data',
     color: 'from-cyan-500/20 to-sky-500/10 border-cyan-500/20',
-    skills: ['C#', '.NET Core', 'Python', 'FastAPI', 'Flask', 'REST APIs', 'PostgreSQL', 'Supabase'],
+    skills: ['C#', '.NET Core', 'Python', 'FastAPI', 'Flask', 'REST APIs', 'API Integration', 'PostgreSQL', 'Supabase'],
   },
   {
     label: 'Applied AI & Automation',
     color: 'from-emerald-500/20 to-green-500/10 border-emerald-500/20',
-    skills: ['Gemini API', 'Computer Vision', 'OpenCV', 'NLP', 'Telegram Bots', 'Playwright', 'Docker'],
+    skills: ['Gemini API', 'Computer Vision', 'OpenCV', 'NLP', 'Telegram Bots', 'Playwright', 'Web Scraping', 'Data Pipelines', 'Docker'],
   },
   {
     label: 'Security & Infrastructure',
     color: 'from-amber-500/20 to-yellow-500/10 border-amber-500/20',
     skills: ['Web Crypto API', 'Supabase Auth', 'Linux', 'LVM', 'LDAP', 'SSH', 'SFTP'],
+  },
+  {
+    label: 'Enterprise Systems & Integration',
+    categoryLabel: 'Enterprise',
+    color: 'from-violet-500/20 to-indigo-500/10 border-violet-500/20',
+    skills: ['SAP ECC 6.0', 'SAP ABAP', 'RFC / BAPIs', 'MuleSoft', 'DataWeave', 'FI/CO', 'SAP FBCJ', 'SFTP'],
   },
 ];
 
@@ -44,7 +46,7 @@ const Skills = () => (
       <p className="section-label text-center">What I know</p>
       <h2 className="section-title">Skills & Technologies</h2>
       <p className="section-subtitle">
-        A focused toolkit for enterprise integration, production-ready products, and practical automation.
+        A focused toolkit for production Next.js products, Python automation, and AI integrations, backed by enterprise integration experience.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -54,6 +56,11 @@ const Skills = () => (
             className={`glass-card p-6 bg-gradient-to-br ${group.color} border`}
             style={{ animationDelay: `${gi * 80}ms` }}
           >
+            {group.categoryLabel && (
+              <span className="inline-flex mb-2 px-2 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                {group.categoryLabel}
+              </span>
+            )}
             <h3 className="text-sm font-bold text-foreground mb-4">{group.label}</h3>
             <div className="flex flex-wrap gap-2">
               {group.skills.map(skill => (
