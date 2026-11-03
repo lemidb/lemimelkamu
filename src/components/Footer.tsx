@@ -1,14 +1,16 @@
 import React from 'react';
 import { Github, Linkedin, Youtube, Mail, ArrowUp } from 'lucide-react';
+import { PORTFOLIO_LINKS } from '@/data/portfolio';
 
 const socials = [
-  { icon: <Github size={17} />,   href: 'https://github.com/lemidb',                label: 'GitHub' },
-  { icon: <Linkedin size={17} />, href: 'https://linkedin.com/in/lemimelkamu',      label: 'LinkedIn' },
-  { icon: <Youtube size={17} />,  href: 'https://youtube.com/shorts/ubzSf-9TGd0',  label: 'YouTube' },
-  { icon: <Mail size={17} />,     href: 'mailto:lemimelkamu@gmail.com',             label: 'Email' },
+  { icon: <Github size={17} />,   href: PORTFOLIO_LINKS.github,  label: 'GitHub', external: true },
+  { icon: <Linkedin size={17} />, href: PORTFOLIO_LINKS.linkedin, label: 'LinkedIn', external: true },
+  { icon: <Youtube size={17} />,  href: PORTFOLIO_LINKS.youtube, label: 'YouTube', external: true },
+  { icon: <Mail size={17} />,     href: PORTFOLIO_LINKS.email,    label: 'Email', external: false },
 ];
 
 const navLinks = [
+  { name: 'Services',   href: '#services' },
   { name: 'Projects',   href: '#projects' },
   { name: 'Skills',     href: '#skills' },
   { name: 'Experience', href: '#experience' },
@@ -32,8 +34,7 @@ const Footer = () => {
               <span className="font-semibold text-foreground/90">Lemi Melkamu</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Full-stack developer & enterprise integration specialist.
-              Building toward my own tech startup.
+              Full-stack engineer building Next.js products, Python automation, and AI-integrated apps.
             </p>
           </div>
 
@@ -54,19 +55,29 @@ const Footer = () => {
           {/* Contact */}
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">Contact</p>
-            <p className="text-sm text-muted-foreground mb-1">lemimelkamu@gmail.com</p>
+            <a href={PORTFOLIO_LINKS.email} className="block text-sm text-muted-foreground mb-1 hover:text-primary transition-colors">
+              lemimelkamu@gmail.com
+            </a>
             <p className="text-sm text-muted-foreground mb-4">+251 977 66 84 08</p>
+            <a
+              href={PORTFOLIO_LINKS.article}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-xs text-muted-foreground mb-4 hover:text-primary transition-colors"
+            >
+              Writing: A Different Approach to Sharing Your Professional Profile
+            </a>
             <div className="flex gap-3">
               {socials.map(s => (
                 <a
                   key={s.label}
                   href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={s.external ? '_blank' : undefined}
+                  rel={s.external ? 'noopener noreferrer' : undefined}
                   aria-label={s.label}
                   className="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-white/20 transition-colors"
                 >
-                  {s.icon}
+                  {React.cloneElement(s.icon, { 'aria-hidden': true })}
                 </a>
               ))}
             </div>

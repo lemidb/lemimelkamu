@@ -1,24 +1,44 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  CONTACT_SUBJECT_EVENT,
+  CONTACT_SUBJECTS,
+  ContactSubject,
+} from '@/data/portfolio';
 
 const ContactForm = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    subject: 'Something else' as ContactSubject,
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  useEffect(() => {
+    const handleSubject = (event: Event) => {
+      const subject = (event as CustomEvent<ContactSubject>).detail;
+      if (CONTACT_SUBJECTS.includes(subject)) {
+        setFormData(prev => ({ ...prev, subject }));
+      }
+    };
+
+    window.addEventListener(CONTACT_SUBJECT_EVENT, handleSubject);
+    return () => window.removeEventListener(CONTACT_SUBJECT_EVENT, handleSubject);
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -32,7 +52,7 @@ const ContactForm = () => {
         title: "Message sent!",
         description: "Thanks for reaching out. I'll get back to you soon.",
       });
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', subject: 'Something else', message: '' });
       setIsSubmitting(false);
     }, 1500);
   };
@@ -59,6 +79,20 @@ const ContactForm = () => {
           required
           className="bg-background/80"
         />
+      </div>
+      <div>
+        <label htmlFor="contact-subject" className="sr-only">Project type</label>
+        <select
+          id="contact-subject"
+          name="subject"
+          value={formData.subject}
+          onChange={handleChange}
+          className="h-10 w-full rounded-md border border-input bg-background/80 px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {CONTACT_SUBJECTS.map(subject => (
+            <option key={subject} value={subject}>{subject}</option>
+          ))}
+        </select>
       </div>
       <div>
         <Textarea
